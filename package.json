@@ -2,38 +2,54 @@
   "name": "n9-webpack-app-template",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "private": true,
   "scripts": {
-    "start": "webpack-dev-server --config=webpack.dev.js",
+    "start": "webpack-dev-server --config=webpack.dev.js --watch",
+    "start:build": "webpack --config=webpack.prod.js",
     "dev": "node server/main.js",
-    "build": "cross-env NODE_ENV=production webpack --config=webpack.prod.js --env.NODE_ENV=production"
+    "dev:build": "cross-env NODE_ENV=production webpack --config=webpack.prod.js"
   },
   "author": "sundaySmile",
   "license": "ISC",
   "dependencies": {
-    "babel-polyfill": "^6.26.0"
+    "ejs": "^2.5.8",
+    "prop-types": "^15.6.1",
+    "react": "^16.3.1",
+    "react-dom": "^16.3.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
+    "babel-plugin-react-transform": "^3.0.0",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
     "brotli-webpack-plugin": "^0.5.0",
+    "clean-webpack-plugin": "^0.1.19",
     "compression-webpack-plugin": "^1.1.11",
+    "connect-history-api-fallback": "^1.5.0",
     "cross-env": "^5.1.4",
     "css-loader": "^0.28.11",
+    "cssnano": "^3.10.0",
     "extract-loader": "^2.0.1",
-    "extract-text-webpack-plugin": "^3.0.2",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "^1.1.11",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.1.0",
+    "http": "^0.0.0",
     "optimize-css-assets-webpack-plugin": "^4.0.0",
+    "postcss-cssnext": "^3.1.0",
+    "postcss-import": "^11.1.0",
+    "postcss-loader": "^2.1.3",
+    "react-transform-hmr": "^1.0.4",
     "style-loader": "^0.20.3",
     "uglifyjs-webpack-plugin": "^1.2.4",
+    "url-loader": "^1.0.1",
     "webpack": "^4.4.1",
     "webpack-bundle-analyzer": "^2.11.1",
     "webpack-cli": "^2.0.13",
     "webpack-dev-server": "^3.1.1",
-    "webpack-hot-middleware": "^2.21.2"
+    "webpack-hot-middleware": "^2.21.2",
+    "webpack-merge": "^4.1.2"
   }
 }

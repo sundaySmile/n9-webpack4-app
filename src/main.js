@@ -1,6 +1,6 @@
-// require("babel-runtime/regenerator");
-require("./main.css");
-require("./index.html");
+// import("./main.css");
+// require("./index.html");
+import printMe from './print.js';
 
 var a = async (args) => {
 	const { a, b } = args;
@@ -9,4 +9,11 @@ var a = async (args) => {
   await console.log('start babel', c, b);
   console.log('Done');
 }
-a({ a:2, b: 3 });
+a({ a: 2, b: 12 });
+printMe();
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Avatar from './pages/avatar.js';
+ 
+ReactDOM.render(<Avatar name="[Mary"/>, document.getElementById('root'));

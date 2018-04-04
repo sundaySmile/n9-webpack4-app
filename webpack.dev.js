@@ -1,104 +1,41 @@
-const webpack = require("webpack");
-const path = require("path");
-// const HTMLWebpackPlugin = require("html-webpack-plugin");
-const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+const webpack = require('webpack')
+const path = require('path')
+const webpackMerge = require('webpack-merge')
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
-module.exports = {
-    entry: {
-        main: ["./src/main.js"]
-    },
-    output: {
-        filename: "[name]-bundle.js",
-        path: path.resolve(__dirname, "./dist"),
-        publicPath: "/"
-    },
-    mode: 'development',
-    devtool: "source-map",
-    // resolve: {
-    //   root: [
-    //     path.join(__dirname, 'src'),
-    //     path.join(__dirname, 'node_modules')
-    //   ]
-    // },
-    module: {
-        rules: [
-            {
-                test: /\.js$/,
-                use: [
-                    {
-                        loader: "babel-loader"
-                    }
-                ],
-                exclude: /node_modules/
-            },
-            {
-                test: /\.css$/,
-                use: [
-                    {
-                        loader: "style-loader"
-                    },
-                    {
-                        loader: "css-loader"
-                    }
-                ]
-            },
-            {
-                test: /\.(jpg|png|svg|webp)$/,
-                use: [
-                    {
-                        loader: "file-loader",
-                        options: {
-                            name: "images/[name]-[hash:8].[ext]"                           }
-                    }
-                ]
-            },
-            {
-                test: /\.html$/,
-                use: [
-                    {
-                        loader: "file-loader",
-                        options: {
-                            name: "[name].[ext]"
-                        }
-                    },
-                    {
-                        loader: "extract-loader"
-                    },
-                    {
-                        loader: "html-loader",
-                        options: {
-                            attrs: ["img:src"]
-                        }
-                    }
-                ]
-            },
-            {
-                test: /\.md$/,
-                use: [
-                    {
-                        loader: "markdown-with-front-matter-loader"
-                    }
-                ]
-            }
-        ]
-    },
-    plugins: [
-        new BundleAnalyzerPlugin({
-            generateStatsFile: true,
-            analyzerMode: "disabled"
-        }),
-        new webpack.DefinePlugin({
-            "process.env": {
-                NODE_ENV: JSON.stringify("development"),
-                WEBPACK: true
-            }
-        }),
-        new webpack.HotModuleReplacementPlugin(), // Enable HMR
-        new webpack.NamedModulesPlugin()
-        // new HTMLWebpackPlugin({
-        //     template: "./src/index.ejs",
-        //     inject: true,
-        //     title: "Hello"
-        // })
-    ]
-}
+const baseWebpackConfig = require("./webpack.common.js");
+
+const devWebpackConfig = webpackMerge(baseWebpackConfig,
+	{
+		mode: 'development',
+		devtool: 'cheap-module-eval-source-map',
+		devServer: {
+			// proxy: { // proxy URLs to backend development server
+			// 	'/api': 'http://localhost:3000'
+			// },
+			host: "0.0.0.0",
+			port: "9001",
+			open: false,
+			overlay: true,
+			contentBase: path.join(__dirname, 'dist'), // boolean | string | array, static file location
+			compress: true, // enable gzip compression
+			historyApiFallback: true, // true for index.html upon 404, object for multiple paths
+			hot: true, // hot module replacement. Depends on HotModuleReplacementPlugin
+			https: false, // true for self-signed, object for cert authority
+			noInfo: true // only errors & warns on hot reload
+		},
+		plugins: [
+			// new BundleAnalyzerPlugin({
+			// 	generateStatsFile: true,
+			// 	analyzerMode: 'disabled'
+			// }),
+			new webpack.DefinePlugin({
+				'process.env': {
+					NODE_ENV: JSON.stringify('development'),
+					WEBPACK: true
+				}
+			})
+		]
+	}
+);
+module.exports = devWebpackConfig;
