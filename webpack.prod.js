@@ -25,6 +25,9 @@ let prodWebpackConfig = webpackMerge(baseWebpackConfig, {
     publicPath: config.build.assetsPublicPath
   },
 	optimization: {
+    nodeEnv: 'production',
+    minimize: true,
+    concatenateModules: true,  // 启用ES模块的模块连接功能
 		// minSize: 30000,
 		// minChunks: 1,
     splitChunks: {
@@ -50,7 +53,8 @@ let prodWebpackConfig = webpackMerge(baseWebpackConfig, {
     //       use: {
     //         loader: 'css-loader',
     //         options: {
-    //           sourceMap: true,
+		//           sourceMap: true,
+		//           minimize: true
     //         },
     //       },
 		// 			publicPath: '/'
@@ -72,16 +76,16 @@ let prodWebpackConfig = webpackMerge(baseWebpackConfig, {
       cssProcessorOptions: { discardComments: { removeAll: true } },
       canPrint: true
 		}),
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('production'),
-        WEBPACK: true
-      }
-    }),
+    // new webpack.DefinePlugin({
+    //   'process.env': {
+    //     NODE_ENV: JSON.stringify('production'),
+    //     WEBPACK: true
+    //   }
+    // }),
     // new webpack.optimize.CommonsChunkPlugin({ name: "vendor" }),
-    new UglifyJSPlugin({
-      sourceMap: true
-    })
+    // new UglifyJSPlugin({
+    //   sourceMap: true
+    // })
     // new BrotliPlugin()
   ]
 })

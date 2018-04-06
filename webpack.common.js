@@ -13,8 +13,8 @@ module.exports = {
 	},
 	output: {
 		filename: '[name].[hash:7].js',
-		path: path.resolve(__dirname, './dist')
-		// chunkFilename: '[name].bundle.js'
+		path: path.resolve(__dirname, './dist'),
+		chunkFilename: '[name].bundle.js'
 	},
   resolve: {
     modules: [
@@ -68,10 +68,17 @@ module.exports = {
           {
             loader: 'url-loader',
             options: {
-              name: 'images/[name]-[hash:8].[ext]'
+              name: 'images/[name]-[hash:8].[ext]',
+              limit: 3 * 1024
             }
           }
         ]
+      },
+      {
+        test: /\.(jpe?g|png|gif|svg)$/,
+        loader: 'image-webpack-loader',
+        // This will apply the loader before the other ones
+        enforce: 'pre',
       },
       // {
       //   test: /\.html$/,

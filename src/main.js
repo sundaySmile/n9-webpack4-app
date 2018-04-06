@@ -9,7 +9,7 @@ var a = async (args) => {
   await console.log('start babel', c, b);
   console.log('Done');
 }
-a({ a: 2, b: 12 });
+a({ a: 2, b: 13 });
 printMe();
 
 import React from 'react';

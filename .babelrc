@@ -20,6 +20,15 @@
       },
       "debug": false
     },
-    "plugins": ["transform-runtime"]
-  }
+    "plugins": [
+        "transform-runtime",
+        ["transform-imports", {
+            "lodash": {
+                "transform": "lodash/${member}",
+                "preventFullImport": true
+            }
+        }],
+        "syntax-dynamic-import"
+    ]
+}
   
