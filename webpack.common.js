@@ -57,7 +57,8 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              name: 'images/[name]-[hash:8].[ext]'
+							limit: 10000,
+              name: 'images/[name].[hash:8].[ext]'
             }
           }
         ]
@@ -67,8 +68,9 @@ module.exports = {
         use: [
           {
             loader: 'url-loader',
-            options: {
-              name: 'images/[name]-[hash:8].[ext]'
+						options: {
+							limit: 10000,
+              name: path.resolve(__dirname, 'images/[name].[hash:8].[ext]')
             }
           }
         ]

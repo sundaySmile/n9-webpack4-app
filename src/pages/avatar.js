@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 // import styles from './Avatar.css';
-import avatarURL from '../images/lifting.jpg';
+import avatarURL from '../images/link.jpg';
 
 class Avatar extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			avatarURLs: [avatarURL]
+			avatarURLs: avatarURL
 		}
 	}
   render() {
