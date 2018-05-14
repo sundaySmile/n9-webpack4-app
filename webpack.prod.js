@@ -15,75 +15,21 @@ const baseWebpackConfig = require('./webpack.common.js')
 let prodWebpackConfig = webpackMerge(baseWebpackConfig, {
   mode: 'production',
   devtool: 'source-map',
-  // performance: {
-  // 	maxAssetSize: 200000,
-  // 	maxEntrypointSize: 40000,
-  // 	assetFilter: function (assetFilename) {
-  // 		return assetFilename.endsWith('.css') || assetFilename.endsWith('.js');
-  // 	}
-  // },
   output: {
     publicPath: config.build.assetsPublicPath
   },
-	optimization: {
-    nodeEnv: 'production',
-		minimize: true,
-    // minimizer: [
-    //   new UglifyJSPlugin({
-    //     cache: true,
-    //     parallel: true,
-    //     sourceMap: true // set to true if you want JS source maps
-    //   }),
-    //   new OptimizeCSSAssetsPlugin({})
-    // ],
-		// minSize: 30000,
-		// minChunks: 1,
-    splitChunks: {
-			cacheGroups: {
-				styles: {
-          name: 'styles',
-          test: /\.css$/,
-          chunks: 'all',
-          enforce: true
-				},
-        commons: {
-          // test: /[\\/]node_modules[\\/]/,
-          // name: '',
-          // chunks: 'all'
-        }
-      }
-    }
-  },
-  module: {
-  	rules: [
-  		{
-				// test: /\.css$/,
-				// use: [
-				// 	MiniCssExtractPlugin.loader,
-				// 	'css-loader'
-				// ]
-  		}
-  	]
-  },
   plugins: [
-		// new MiniCssExtractPlugin({
-		// 	// id: '1',
-		// 	filename: 'build.main.css',
-		// 	chunkFilename: "[id].css"
-    // }),
-    // new OptimizeCssAssetsPlugin({
-    //   assetNameRegExp: /\.css$/g,
-    //   // cssProcessor: require('cssnano'),
-    //   cssProcessorOptions: { discardComments: { removeAll: true } },
-    //   canPrint: true
-		// }),
-    new webpack.BannerPlugin('Created at ' + new Date()),
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('production'),
-        WEBPACK: true
-      }
+		new MiniCssExtractPlugin({
+			filename: '[name].[chunkhash:8].css',
+			chunkFilename: "[id].css"
     }),
+    new OptimizeCssAssetsPlugin({
+      assetNameRegExp: /\.css$/g,
+      // cssProcessor: require('cssnano'),
+      cssProcessorOptions: { discardComments: { removeAll: true } },
+      canPrint: true
+		}),
+    new webpack.BannerPlugin('Created at ' + new Date()),
     new UglifyJSPlugin({
       sourceMap: true
     })
@@ -106,5 +52,16 @@ if (config.build.productionGzip) {
     })
   )
 }
+prodWebpackConfig.module.rules[1] = {
+	test: /\.css$/,
+	use: [
+		MiniCssExtractPlugin.loader,
+		'css-loader',
+		'postcss-loader'
+	],
+	exclude: /node_modules/
+}
+
+console.log(prodWebpackConfig.module)
 
 module.exports = prodWebpackConfig
