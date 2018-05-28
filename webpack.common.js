@@ -63,18 +63,6 @@ module.exports = {
           }
         ]
       },
-      {
-        test: /\.(jpg|png|svg|webp)$/,
-        use: [
-          {
-            loader: 'url-loader',
-						options: {
-							limit: 10000,
-              name: path.resolve(__dirname, 'images/[name].[hash:8].[ext]')
-            }
-          }
-        ]
-      },
       // {
       //   test: /\.html$/,
       //   use: [

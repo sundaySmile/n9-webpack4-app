@@ -2,6 +2,7 @@ import "./main.css";
 
 // require("./index.html");
 import printMe from './print.js';
+import avatarURL from './images/link.jpg';
 
 var a = async (args) => {
 	const { a, b } = args;
@@ -13,8 +14,7 @@ var a = async (args) => {
 a({ a: 2, b: 11 });
 printMe();
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Avatar from './pages/avatar.js';
- 
-ReactDOM.render(<Avatar name="Mary"/>, document.getElementById('root'));
+const container = document.querySelector('#root');
+const avatar = document.createElement('img');
+avatar.src = avatarURL;
+container.appendChild(avatar);
