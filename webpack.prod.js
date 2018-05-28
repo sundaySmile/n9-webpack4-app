@@ -62,6 +62,4 @@ prodWebpackConfig.module.rules[1] = {
 	exclude: /node_modules/
 }
 
-console.log(prodWebpackConfig.module)
-
 module.exports = prodWebpackConfig
